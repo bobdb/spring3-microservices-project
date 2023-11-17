@@ -7,8 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.math.BigDecimal;
-
 @SpringBootApplication
 public class InventoryServiceApplication {
 
@@ -18,11 +16,10 @@ public class InventoryServiceApplication {
 	@Bean
 	CommandLineRunner loadData(InventoryRepository inventoryRepository) {
 		return args -> {
-			Inventory inventory = Inventory.builder().skucode("asdfasdfa").quantity(323342).build();
-			Inventory inventory1 = Inventory.builder().skucode("bfga").quantity(30342).build();
-			inventoryRepository.save(inventory);
+			Inventory inventory1 = Inventory.builder().skucode("ABC").quantity(10).build();
+			Inventory inventory2 = Inventory.builder().skucode("XYZ").quantity(0).build();
 			inventoryRepository.save(inventory1);
-
+			inventoryRepository.save(inventory2);
 		};
 	}
 

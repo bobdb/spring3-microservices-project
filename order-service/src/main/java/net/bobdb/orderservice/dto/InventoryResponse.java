@@ -1,4 +1,4 @@
-package net.bobdb.inventoryservice.dto;
+package net.bobdb.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

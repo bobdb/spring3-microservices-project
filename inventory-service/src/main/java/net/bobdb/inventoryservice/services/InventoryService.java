@@ -32,7 +32,14 @@ public class InventoryService {
         log.info("Inventory Item " + inventoryRequest.getSkucode() + " created" );
     }
     @Transactional(readOnly = true)
-    public boolean isInStock(String skuCode) {
-        return inventoryRepository.findBySkucode(skuCode).isPresent();
+    public List<InventoryResponse> isInStock(List<String> skuCode) {
+        return inventoryRepository.findBySkucodeIn(skuCode).stream()
+                .map(i-> InventoryResponse.builder()
+                        .skucode(i.getSkucode())
+                        .isInStock(i.getQuantity()>0)
+                        .build() )
+                .toList();
+
+
     }
 }
