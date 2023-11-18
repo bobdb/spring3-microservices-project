@@ -28,7 +28,7 @@ public class OrderService {
     Mapper mapper;
 
     @Autowired
-    WebClient webClient;
+    WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest) {
         List<OrderLineItem> orderLineItemList = orderRequest.getOrderLineItemDTOList()
@@ -44,8 +44,9 @@ public class OrderService {
                 .map(OrderLineItem::getSkucode)
                 .toList();
 
-        InventoryResponse[] inventoryResponseArray = webClient.get()
-                 .uri("http://localhost:8082/api/inventory", uriBuilder -> uriBuilder.queryParam("skucode", skucodes).build())
+        InventoryResponse[] inventoryResponseArray = webClientBuilder.build()
+                 .get()
+                 .uri("http://inventory-service/api/inventory", uriBuilder -> uriBuilder.queryParam("skucode", skucodes).build())
                  .retrieve()
                  .bodyToMono(InventoryResponse[].class)
                  .block();
