@@ -48,7 +48,7 @@ class productServiceApplicationTests {
 		ProductRequest productRequest = getProductRequest();
 		String productRequestString = objectMapper.writeValueAsString(productRequest);
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/products")
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/product")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(productRequestString))
 				.andExpect(status().isCreated());
