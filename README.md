@@ -9,6 +9,7 @@
 
 ## Other available stuff
 1. Actuator (on order service: 9001)
+2. Zipkin (default :9411/zipkin)
 
 ### Changelog
 - 1.0.0 basic services running
@@ -16,4 +17,5 @@
 - 1.2.0 discovery server and client-side load balancing
 - 1.3.0 API gateway, routing
 - 1.4.0 Circuitbreaker (Resilience4j)
+- 1.5.0 Distributed tracing, Zipkin
 
