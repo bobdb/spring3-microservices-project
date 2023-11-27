@@ -1,5 +1,6 @@
 package net.bobdb.inventoryservice.controllers;
 
+import net.bobdb.inventoryservice.dto.InventoryDto;
 import net.bobdb.inventoryservice.dto.InventoryResponse;
 import net.bobdb.inventoryservice.mappers.Mapper;
 import net.bobdb.inventoryservice.services.InventoryService;
@@ -15,6 +16,13 @@ public class InventoryController {
 
     @Autowired
     InventoryService inventoryService;
+
+    @GetMapping("/findAll")
+    @ResponseStatus(HttpStatus.OK)
+    public List<InventoryDto> findAll() {
+        return inventoryService.findAll();
+    }
+
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

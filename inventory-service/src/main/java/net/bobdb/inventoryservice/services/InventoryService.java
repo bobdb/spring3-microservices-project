@@ -1,7 +1,7 @@
 package net.bobdb.inventoryservice.services;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bobdb.inventoryservice.dto.InventoryRequest;
+import net.bobdb.inventoryservice.dto.InventoryDto;
 import net.bobdb.inventoryservice.dto.InventoryResponse;
 import net.bobdb.inventoryservice.mappers.Mapper;
 import net.bobdb.inventoryservice.models.Inventory;
@@ -22,14 +22,15 @@ public class InventoryService {
     @Autowired
     Mapper mapper;
 
-    public List<Inventory> findAll() {
-        return inventoryRepository.findAll();
+    public List<InventoryDto> findAll() {
+        List<Inventory> list = inventoryRepository.findAll();
+        return list.stream().map(Mapper::mapToDto).toList();
     }
 
-    public void createInventory(InventoryRequest inventoryRequest) {
-        Inventory inventory = mapper.mapToObject(inventoryRequest);
+    public void createInventory(InventoryDto inventoryDto) {
+        Inventory inventory = mapper.mapToObject(inventoryDto);
         inventoryRepository.save(inventory);
-        log.info("Inventory Item " + inventoryRequest.getSkucode() + " created" );
+        log.info("Inventory Item " + inventoryDto.getSkucode() + " created" );
     }
     @Transactional(readOnly = true)
     public List<InventoryResponse> isInStock(List<String> skuCode) {

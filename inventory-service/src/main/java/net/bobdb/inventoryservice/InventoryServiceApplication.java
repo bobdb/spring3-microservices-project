@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class InventoryServiceApplication {
@@ -18,10 +20,11 @@ public class InventoryServiceApplication {
 	@Bean
 	CommandLineRunner loadData(InventoryRepository inventoryRepository) {
 		return args -> {
-			Inventory inventory1 = Inventory.builder().skucode("ABC").quantity(10).build();
-			Inventory inventory2 = Inventory.builder().skucode("XYZ").quantity(0).build();
-			inventoryRepository.save(inventory1);
-			inventoryRepository.save(inventory2);
+			List<Inventory> inventoryList = List.of(
+					Inventory.builder().skucode("Les Paul").quantity(10).build(),
+					Inventory.builder().skucode("Strat").quantity(0).build(),
+					Inventory.builder().skucode("Explorer").quantity(5).build());
+			inventoryRepository.saveAll(inventoryList);
 		};
 	}
 
