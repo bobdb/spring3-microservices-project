@@ -8,9 +8,10 @@
 5. API gateway (default: 8080)
 
 ## Other available stuff
-1. Actuator (on order service: 9001)
-2. Zipkin (default :9411/zipkin)
-3. Kafka (9092)
+1. Actuator (on order service :9001)
+2. Zipkin (:9411/zipkin)
+3. Kafka (:9092)
+4. Keycloak (8181:8080)
 
 ### Changelog
 - 1.0.0 basic services running
