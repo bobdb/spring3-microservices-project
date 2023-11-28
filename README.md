@@ -10,6 +10,7 @@
 ## Other available stuff
 1. Actuator (on order service: 9001)
 2. Zipkin (default :9411/zipkin)
+3. Kafka (9092)
 
 ### Changelog
 - 1.0.0 basic services running
@@ -18,4 +19,5 @@
 - 1.3.0 API gateway, routing
 - 1.4.0 Circuitbreaker (Resilience4j)
 - 1.5.0 Distributed tracing, Zipkin
+- 1.6.0 Event-driven notifiation service (Kafka)
 
