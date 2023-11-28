@@ -13,13 +13,12 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name="inventory", fallbackMethod = "fallback")
     public String placeOrder(@RequestBody OrderRequest orderRequest) {
         orderService.placeOrder(orderRequest);
-        return "Order placed succesfully.";
+        return "Order placed successfully.";
     }
 
     public String fallback(OrderRequest orderRequest, RuntimeException runtimeException) {

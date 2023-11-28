@@ -4,11 +4,13 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import net.bobdb.orderservice.dto.InventoryResponse;
 import net.bobdb.orderservice.dto.OrderRequest;
+import net.bobdb.orderservice.event.OrderPlacedEvent;
 import net.bobdb.orderservice.mappers.Mapper;
 import net.bobdb.orderservice.models.Order;
 import net.bobdb.orderservice.models.OrderLineItem;
 import net.bobdb.orderservice.repositories.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -30,7 +32,10 @@ public class OrderService {
     @Autowired
     WebClient.Builder webClientBuilder;
 
-    public void placeOrder(OrderRequest orderRequest) {
+    @Autowired
+    KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
+
+    public String placeOrder(OrderRequest orderRequest) {
         List<OrderLineItem> orderLineItemList = orderRequest.getOrderLineItemDTOList()
                                                             .stream()
                                                             .map(mapper::mapToObject)
@@ -56,6 +61,9 @@ public class OrderService {
 
         if (allProductsInStock) {
             ordersRepository.save(order);
+//            kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrdernumber()));
+            kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrdernumber()));
+            return "Order Placed Successfully";
         } else {
             throw new IllegalArgumentException("not in stock");
         }
