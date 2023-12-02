@@ -17,14 +17,13 @@ public class InventoryController {
     @Autowired
     InventoryService inventoryService;
 
-    @GetMapping("/findAll")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<InventoryDto> findAll() {
         return inventoryService.findAll();
     }
 
-
-    @GetMapping
+    @GetMapping("/inStock")
     @ResponseStatus(HttpStatus.OK)
     public List<InventoryResponse> isInStock(@RequestParam List<String> skucode) {
         return inventoryService.isInStock(skucode);

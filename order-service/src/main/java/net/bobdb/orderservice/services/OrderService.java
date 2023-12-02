@@ -60,9 +60,16 @@ public class OrderService {
                 .allMatch(InventoryResponse::isInStock);
 
         if (allProductsInStock) {
+
+            // Save Order To Database
             ordersRepository.save(order);
-//            kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrdernumber()));
+
+            // Send a Notification to Orderer
             kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrdernumber()));
+
+            // Log it
+            log.info("Order number: {} placed successfully", order.getOrdernumber());
+
             return "Order Placed Successfully";
         } else {
             throw new IllegalArgumentException("not in stock");
