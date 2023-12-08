@@ -27,6 +27,11 @@ public class InventoryService {
         return list.stream().map(Mapper::mapToDto).toList();
     }
 
+    public List<InventoryDto> findBySkuCodes(List<String> skucode) {
+        List<Inventory> list = inventoryRepository.findBySkucodeIn(skucode);
+        return list.stream().map(Mapper::mapToDto).toList();
+    }
+
     public void createInventory(InventoryDto inventoryDto) {
         Inventory inventory = mapper.mapToObject(inventoryDto);
         inventoryRepository.save(inventory);
@@ -43,4 +48,5 @@ public class InventoryService {
 
 
     }
+
 }

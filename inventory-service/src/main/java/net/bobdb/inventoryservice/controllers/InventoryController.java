@@ -19,14 +19,28 @@ public class InventoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<InventoryDto> findAll() {
-        return inventoryService.findAll();
+    public List<InventoryDto> find(@RequestParam(required = false) List<String> skucode) {
+        if (skucode==null)
+            return inventoryService.findAll();
+
+        return inventoryService.findBySkuCodes(skucode);
+
     }
 
-    @GetMapping("/inStock")
+    @GetMapping("/instock")
     @ResponseStatus(HttpStatus.OK)
     public List<InventoryResponse> isInStock(@RequestParam List<String> skucode) {
         return inventoryService.isInStock(skucode);
     }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public String createInventory(@RequestBody InventoryDto inventoryDto) {
+        inventoryService.createInventory(inventoryDto);
+        return "inventory created: " + inventoryDto;
+    }
+
+
+
 
 }

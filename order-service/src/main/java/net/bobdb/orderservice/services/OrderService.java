@@ -51,7 +51,7 @@ public class OrderService {
 
         InventoryResponse[] inventoryResponseArray = webClientBuilder.build()
                  .get()
-                 .uri("http://inventory-service/api/inventory", uriBuilder -> uriBuilder.queryParam("skucode", skucodes).build())
+                 .uri("http://inventory-service/api/inventory/instock", uriBuilder -> uriBuilder.queryParam("skucode", skucodes).build())
                  .retrieve()
                  .bodyToMono(InventoryResponse[].class)
                  .block();
@@ -77,4 +77,7 @@ public class OrderService {
 
     }
 
+    public List<Order> findAll() {
+        return List.of(Order.builder().ordernumber("test123").build());
+    }
 }

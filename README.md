@@ -12,15 +12,24 @@
 2. Zipkin (9411/zipkin)
 3. Kafka (29092:notificationId:notificationTopic)
 4. Keycloak (8181:8080)
+5. Eureka Discovery Server UI localhost:8080/eureka/web
 
 ## Endpoints
 (TODO just add a link to swagger)
-1. GET localhost:8080/eureka/web
-2. GET localhost:8080/products/ --> findAll()
-3. POST localhost:8080/products/ {ProductRequest}
-5. GET localhost:8080/inventory/ --> findAll()
-6. GET localhost:8080/inventory/?skucode=Strat&skucode=Tele
-6. POST localhost:8080/orders {[OrderLineItem]}
+
+Orders 
+- GET /orders --> findAll()
+- POST /orders {[OrderLineItem]}
+
+Products
+- GET /products --> findAll()
+- POST /products {ProductRequest}
+
+Inventory 
+- GET /inventory --> findAll()
+- GET /inventory?skucode={1}?skucode={2} //TODO change this yuck
+- GET /inventory/instock?skucode={1}?skucode={3} // change this too  remember add tests
+- POST /inventory/{InventoryDTO}
 
 ### Changelog
 - 1.0.0 basic services running
@@ -29,5 +38,5 @@
 - 1.3.0 API gateway, routing
 - 1.4.0 Circuitbreaker (Resilience4j)
 - 1.5.0 Distributed tracing, Zipkin
-- 1.6.0 Event-driven notifiation service (Kafka)
+- 1.6.0 Event-driven notification service (Kafka)
 

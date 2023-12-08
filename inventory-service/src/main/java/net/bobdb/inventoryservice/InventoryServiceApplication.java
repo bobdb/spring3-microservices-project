@@ -19,14 +19,17 @@ public class InventoryServiceApplication {
 	}
 	@Bean
 	CommandLineRunner loadData(InventoryRepository inventoryRepository) {
+		List<Inventory> inventoryList = List.of(
+				Inventory.builder().skucode("Les Paul").quantity(10).build(),
+				Inventory.builder().skucode("Strat").quantity(0).build(),
+				Inventory.builder().skucode("Explorer").quantity(5).build());
+		for (Inventory i : inventoryList) {
+			System.out.println(i + "added to InventoryRepository");
+		}
 		return args -> {
-			List<Inventory> inventoryList = List.of(
-					Inventory.builder().skucode("Les Paul").quantity(10).build(),
-					Inventory.builder().skucode("Strat").quantity(0).build(),
-					Inventory.builder().skucode("Explorer").quantity(5).build());
+
 			inventoryRepository.saveAll(inventoryList);
 		};
 	}
-
 
 }
