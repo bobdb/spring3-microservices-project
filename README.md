@@ -39,4 +39,5 @@ Inventory
 - 1.4.0 Circuitbreaker (Resilience4j)
 - 1.5.0 Distributed tracing, Zipkin
 - 1.6.0 Event-driven notification service (Kafka)
+- 1.7.0 All sorts of fixes...just look at git
 
