@@ -1,0 +1,21 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+server:
+  port: 0
+spring:
+  application:
+    name: product-service
+  data:
+    mongodb:
+      authentication-database: admin
+      database: products
+      host: localhost
+      password: pass
+      port: 27017
+      username: user

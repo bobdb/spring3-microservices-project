@@ -1,0 +1,52 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+          gateway.route.RouteDefinitionLocator: INFO
+    root: INFO
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        -   id: product-service
+            predicates:
+              - Path=/api/products
+            uri: lb://product-service
+        -   id: order-service
+            predicates:
+              - Path=/api/orders
+            uri: lb://order-service
+        -   filters:
+              - SetPath=/
+            id: discovery-service
+            predicates:
+              - Path=/eureka/web
+            uri: http://localhost:8761
+        -   id: discovery-service-static
+            predicates:
+              - Path=/eureka/**
+            uri: http://localhost:8761
+        -   id: inventory-service
+            predicates:
+              - Path=/api/inventory/**
+            uri: lb://inventory-service
+  main:
+    web-application-type: reactive
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuerUri: http://localhost:8181/realms/spring-boot-microservices-realm
+

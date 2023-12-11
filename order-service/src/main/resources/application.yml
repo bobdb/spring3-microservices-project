@@ -1,0 +1,62 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    circuitbreakers:
+      enabled: true
+  server:
+    address: 127.0.0.1
+    port: 9001
+  tracing:
+    sampling:
+      probability: 1.0
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-ndicator: true
+    instances:
+      inventory:
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        event-consumer-buffer-size: 10
+        failureRateThreshold: 50
+        permittedNumberOfCallsInHalfOpenState: 3
+        sliding-window-ype: COUNT_BASED
+        slidingWindowSize: 5
+        waitDurationInOpenState: 5s
+server:
+  port: 0
+spring:
+  application:
+    name: order-service
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/orders
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: event:net.bobdb.orderservice.event.OrderPlacedEvent
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    template:
+      default-topic: notificationTopic
+
+
