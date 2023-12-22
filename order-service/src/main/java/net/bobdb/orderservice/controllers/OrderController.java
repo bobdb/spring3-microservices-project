@@ -1,6 +1,7 @@
 package net.bobdb.orderservice.controllers;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import net.bobdb.orderservice.dto.OrderDTO;
 import net.bobdb.orderservice.dto.OrderRequest;
 import net.bobdb.orderservice.models.Order;
 import net.bobdb.orderservice.services.OrderService;
@@ -30,7 +31,7 @@ public class OrderController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK) //TODO make this ADMIN only, prohibit USER
-    public List<Order> findAll() {
+    public List<OrderDTO> findAll() {
         return orderService.findAll();
     }
 

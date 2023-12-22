@@ -40,7 +40,4 @@ public class InventoryController {
         return "inventory created: " + inventoryDto;
     }
 
-
-
-
 }

@@ -3,6 +3,7 @@ package net.bobdb.orderservice.services;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import net.bobdb.orderservice.dto.InventoryResponse;
+import net.bobdb.orderservice.dto.OrderDTO;
 import net.bobdb.orderservice.dto.OrderRequest;
 import net.bobdb.orderservice.event.OrderPlacedEvent;
 import net.bobdb.orderservice.mappers.Mapper;
@@ -77,7 +78,8 @@ public class OrderService {
 
     }
 
-    public List<Order> findAll() {
-        return List.of(Order.builder().ordernumber("test123").build());
+    public List<OrderDTO> findAll() {
+        List<Order> list = ordersRepository.findAll();
+        return mapper.mapToDtoList(list);
     }
 }
