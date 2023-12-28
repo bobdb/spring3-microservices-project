@@ -1,3 +1,8 @@
+myapp:
+  openapi:
+    dev-url: http://localhost:8088
+    prod-url: https://myapp.net/stuff
+
 eureka:
   client:
     serviceUrl:
@@ -23,18 +28,18 @@ resilience4j:
   circuitbreaker:
     configs:
       default:
-        register-health-ndicator: true
+        register-health-indicator: true
     instances:
       inventory:
         automaticTransitionFromOpenToHalfOpenEnabled: true
         event-consumer-buffer-size: 10
         failureRateThreshold: 50
         permittedNumberOfCallsInHalfOpenState: 3
-        sliding-window-ype: COUNT_BASED
+        sliding-window-type: COUNT_BASED
         slidingWindowSize: 5
         waitDurationInOpenState: 5s
 server:
-  port: 0
+  port: 8088
 spring:
   application:
     name: order-service

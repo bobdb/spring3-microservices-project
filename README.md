@@ -5,14 +5,15 @@
 2. inventory-service - Postgres
 3. order-service - Postgres
 4. discovery-server (localhost:8761)
-5. API gateway (localhost:8080)
+5. api-gateway (localhost:8080)
+6. notification-service
 
 ## Other available stuff
 1. Actuator (located in order-service; localhost:9001)
 2. Zipkin (9411/zipkin)
 3. Kafka (29092:notificationId:notificationTopic)
 4. Keycloak (8181:8080)
-5. Eureka Discovery Server UI localhost:8080/eureka/web
+5. Eureka Discovery Server UI http://localhost:8080/eureka/web
 
 ## Endpoints
 (TODO just add a link to swagger)

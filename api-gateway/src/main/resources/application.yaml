@@ -17,18 +17,24 @@ spring:
       routes:
         -   id: product-service
             predicates:
-              - Path=/api/products
+              - Path=/api/products/**
             uri: lb://product-service
         -   id: order-service
             predicates:
-              - Path=/api/orders
+              - Path=/api/orders/**
             uri: lb://order-service
-        -   filters:
+        -   id: order-service-swagger
+            predicates:
+              - Path=/api/orders/swagger-ui/**
+            uri: http://localhost:8088
+            filters:
               - SetPath=/
-            id: discovery-service
+        -   id: discovery-service
             predicates:
               - Path=/eureka/web
             uri: http://localhost:8761
+            filters:
+              - SetPath=/
         -   id: discovery-service-static
             predicates:
               - Path=/eureka/**
@@ -39,4 +45,3 @@ spring:
             uri: lb://inventory-service
   main:
     web-application-type: reactive
-
