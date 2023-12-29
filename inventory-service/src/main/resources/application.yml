@@ -1,21 +1,25 @@
-  eureka:
-    client:
-      serviceUrl:
-        defaultZone: http://eureka:password@localhost:8761/eureka
-  management:
-    tracing:
-      sampling:
-        probability: 1.0
-  server:
-    port: 0
-  spring:
-    application:
-      name: inventory-service
-    datasource:
-      password: postgres
-      url: jdbc:postgresql://localhost:5432/inventory
-      username: postgres
-    jpa:
-      hibernate:
-        ddl-auto: create-drop
-      show-sql: true
+myapp:
+  openapi:
+    dev-url: http://localhost:8080/
+    prod-url: https://myapp.net/stuff
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+server:
+  port: 0
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/inventory
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true

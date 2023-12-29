@@ -1,3 +1,7 @@
+myapp:
+  openapi:
+    dev-url: http://localhost:8080/
+    prod-url: https://myapp.net/stuff
 eureka:
   client:
     serviceUrl:
