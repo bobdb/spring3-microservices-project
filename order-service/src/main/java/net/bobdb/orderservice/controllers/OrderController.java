@@ -23,6 +23,12 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+    @Operation(
+            summary = "Place Order",
+            description = "Creates a new Order")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = OrderDTO.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name="inventory", fallbackMethod = "fallback")
@@ -37,7 +43,7 @@ public class OrderController {
 
     @Operation(
             summary = "Get All Orders",
-            description = "Gets all Orders in the db. The response is a list of Order objects, each containing and order number and its constituaent LineItems")
+            description = "Gets all Orders in the db. The response is a list of Order objects, each containing and order number and its constituent LineItems")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = OrderDTO.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
