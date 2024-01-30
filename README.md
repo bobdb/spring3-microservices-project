@@ -16,7 +16,8 @@
 5. Eureka Discovery Server UI http://localhost:8080/eureka/web
 
 ## Endpoints
-(TODO just add a link to swagger)
+- http://localhost:8080/swagger-ui.html
+- http://localhost:8080/v3/api-docs
 
 Orders 
 - GET /orders --> findAll()
@@ -40,5 +41,4 @@ Inventory
 - 1.4.0 Circuitbreaker (Resilience4j)
 - 1.5.0 Distributed tracing, Zipkin
 - 1.6.0 Event-driven notification service (Kafka)
-- 1.7.0 All sorts of fixes...just look at git 
-
+- 1.7.0 All sorts of fixes...just look at git
