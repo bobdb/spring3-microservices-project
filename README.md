@@ -4,9 +4,9 @@
 1. product-service - MongoDB
 2. inventory-service - Postgres
 3. order-service - Postgres
-4. discovery-server (localhost:8761)
-5. api-gateway (localhost:8080)
-6. notification-service
+4. notification-service
+5. discovery-server (localhost:8761)
+6. api-gateway (localhost:8080)
 
 ## Other available stuff
 1. Actuator (located in order-service; localhost:9001)
@@ -15,23 +15,9 @@
 4. Keycloak (8181:8080)
 5. Eureka Discovery Server UI http://localhost:8080/eureka/web
 
-## Endpoints
+## API Docs - All microservices can be accessed through here!
 - http://localhost:8080/swagger-ui.html
 - http://localhost:8080/v3/api-docs
-
-Orders 
-- GET /orders --> findAll()
-- POST /orders {[OrderLineItem]}
-
-Products
-- GET /products --> findAll()
-- POST /products {ProductRequest}
-
-Inventory 
-- GET /inventory --> findAll()
-- GET /inventory?skucode={1}?skucode={2} //TODO change this yuck
-- GET /inventory/instock?skucode={1}?skucode={3} // change this too  remember add tests
-- POST /inventory/{InventoryDTO}
 
 ### Changelog
 - 1.0.0 basic services running
