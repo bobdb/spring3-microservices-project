@@ -28,10 +28,9 @@ public class ProductController {
     ProductService productService;
     @Operation(
             summary = "Get All Products",
-            description = "Gets all Products in the database. The respponse is a list of Product objects, each containing FIX THIS")
+            description = "Gets all Products in the database. The response is a list of Product objects, each containing FIX THIS")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Product.class), mediaType = "application/json") }),
-            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

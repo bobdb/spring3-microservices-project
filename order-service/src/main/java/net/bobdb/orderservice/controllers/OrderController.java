@@ -43,10 +43,10 @@ public class OrderController {
 
     @Operation(
             summary = "Get All Orders",
-            description = "Gets all Orders in the db. The response is a list of Order objects, each containing and order number and its constituent LineItems")
-    @ApiResponses({
+            description = "Finds Orders in the database.  By default, acts as a findAll. One or more skucodes may be provided " +
+                    "as request parameters.  The response will always return a List, even if it's empty." )
+            @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = OrderDTO.class), mediaType = "application/json") }),
-            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping
     @ResponseStatus(HttpStatus.OK) //TODO make this ADMIN only, prohibit USER

@@ -17,18 +17,11 @@ public class OpenAPIConfig {
     @Value("${myapp.openapi.dev-url}")
     private String devUrl;
 
-    @Value("${myapp.openapi.prod-url}")
-    private String prodUrl;
-
     @Bean
     public OpenAPI myOpenAPI() {
         Server devServer = new Server();
         devServer.setUrl(devUrl);
         devServer.setDescription("Server URL in Development environment");
-
-        Server prodServer = new Server();
-        prodServer.setUrl(prodUrl);
-        prodServer.setDescription("Server URL in Production environment");
 
         Contact contact = new Contact();
         contact.setEmail("noone@gmail.com");
@@ -41,9 +34,9 @@ public class OpenAPIConfig {
                 .title("Inventory Microservice")
                 .version("1.0")
                 .contact(contact)
-                .description("This API exposes endpoints to manage orders.").termsOfService("https://www.noone.com/terms")
+                .description("This API exposes endpoints to manage the inventory.").termsOfService("https://www.noone.com/terms")
                 .license(mitLicense);
 
-        return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+        return new OpenAPI().info(info).servers(List.of(devServer));
     }
 }
