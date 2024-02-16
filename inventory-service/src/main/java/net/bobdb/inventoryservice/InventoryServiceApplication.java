@@ -27,7 +27,7 @@ public class InventoryServiceApplication {
 			System.out.println(i + "added to InventoryRepository");
 		}
 		return args -> {
-
+			//throw new RuntimeException("bummer dude.");
 			inventoryRepository.saveAll(inventoryList);
 		};
 	}
