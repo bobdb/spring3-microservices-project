@@ -26,6 +26,7 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
     @Operation(
             summary = "Get All Products",
             description = "Gets all Products in the database. The response is a list of Product objects, each containing FIX THIS")
