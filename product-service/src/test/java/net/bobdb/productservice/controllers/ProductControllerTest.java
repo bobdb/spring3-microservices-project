@@ -1,6 +1,7 @@
 package net.bobdb.productservice.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.bobdb.productservice.dto.ProductRequest;
 import net.bobdb.productservice.dto.ProductResponse;
 import net.bobdb.productservice.mappers.ProductMapper;
 import net.bobdb.productservice.models.Product;
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductController.class)
@@ -41,8 +43,6 @@ class ProductControllerTest {
 
     @MockBean
     ProductRepository productRepository;
-
-
 
     @Test
     void findAll() throws Exception {
@@ -72,30 +72,18 @@ class ProductControllerTest {
     }
 
     @Test
-    void createProduct() {
-        Product product = Product.builder()
-                                    .name("Product Numero Uno")
-                                    .price(BigDecimal.valueOf(1.23))
-                                    .description("Something espsecial!")
-                            .build();
-//        JUnit
-//        assertEquals("Product Numero Uno", product.getName(), "Product Name was not 'Product Numero Uno'");
+    void createProduct() throws Exception {
+        var product = Product.builder()
+                .name("Product Numero Uno")
+                .price(BigDecimal.valueOf(1.23))
+                .description("Something espsecial!")
+                .build();
 
-        //assertJ
-        assertThat(product.getName())
-                .startsWith("P")
-                .endsWith("o")
-                .isEqualTo("Product Numero Uno");
-
-
-        //Hamcrest
-//        Product product2 = Product.builder()
-//                .name("Product Numero Uno")
-//                .price(BigDecimal.valueOf(1.23))
-//                .description("Something espsecial!")
-//                .build();
-//        assertThat(test1,equalTo(product2));1
-
+        objectMapper.writeValueAsString(product);
+        mockMvc.perform(post("/api/products")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(product)))
+                .andExpect(status().isCreated());
 
     }
 }
