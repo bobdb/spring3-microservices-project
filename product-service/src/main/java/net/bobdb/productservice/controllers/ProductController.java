@@ -11,18 +11,22 @@ import lombok.extern.slf4j.Slf4j;
 import net.bobdb.productservice.dto.ProductRequest;
 import net.bobdb.productservice.dto.ProductResponse;
 
+import net.bobdb.productservice.mappers.ProductMapper;
 import net.bobdb.productservice.models.Product;
 import net.bobdb.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @Tag(name = "Products", description = "Products API")
 @RestController
 @RequestMapping("/api/products")
 @Slf4j
-public class ProductController {
+class ProductController {
 
     @Autowired
     ProductService productService;
@@ -38,6 +42,12 @@ public class ProductController {
     public List<ProductResponse> findAll() {
         return productService.findAll();
     }
+
+    @GetMapping("/{id}")
+    Optional<Product> findById(@PathVariable Integer id) {
+        return productService.findById(id);
+    }
+
     @Operation(
             summary = "Create Product",
             description = "Inserts a new Product in the database.")
@@ -46,8 +56,8 @@ public class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductRequest productRequest) {
-        productService.createProduct(productRequest); // on failure sends 500 in service
+    ProductResponse createProduct(@RequestBody @Validated ProductRequest productRequest) {
+        return ProductMapper.mapToResponse(productService.createProduct(productRequest)); // on failure sends 500 in service
     }
 
 }

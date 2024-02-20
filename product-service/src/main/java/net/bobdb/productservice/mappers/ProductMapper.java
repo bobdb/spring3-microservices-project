@@ -22,4 +22,12 @@ public class ProductMapper {
                 .build();
     }
 
+    public static ProductRequest mapToRequest(Product product) {
+        return ProductRequest.builder()
+                .name(product.getName())
+                .price(product.getPrice())
+                .description(product.getDescription())
+                .build();
+    }
+
 }
