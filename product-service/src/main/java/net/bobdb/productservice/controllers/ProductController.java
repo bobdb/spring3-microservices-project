@@ -8,8 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
-import net.bobdb.productservice.dto.ProductRequest;
-import net.bobdb.productservice.dto.ProductResponse;
+import net.bobdb.productservice.dto.ProductDTO;
 
 import net.bobdb.productservice.mappers.ProductMapper;
 import net.bobdb.productservice.models.Product;
@@ -39,7 +38,7 @@ class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> findAll() {
+    public List<ProductDTO> findAll() {
         return productService.findAll();
     }
 
@@ -63,8 +62,8 @@ class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ProductResponse createProduct(@RequestBody @Validated ProductRequest productRequest) {
-        return ProductMapper.mapToResponse(productService.createProduct(productRequest)); // on failure sends 500 in service
+    ProductDTO createProduct(@RequestBody @Validated ProductDTO productDTO) {
+        return ProductMapper.mapToDTO(productService.createProduct(productDTO)); // on failure sends 500 in service
     }
 
 }

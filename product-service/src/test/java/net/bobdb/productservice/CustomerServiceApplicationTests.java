@@ -1,7 +1,7 @@
 package net.bobdb.productservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.bobdb.productservice.dto.ProductRequest;
+import net.bobdb.productservice.dto.ProductDTO;
 import net.bobdb.productservice.repositories.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ class productServiceApplicationTests {
 
 	@Test
 	void createProduct() throws Exception {
-		ProductRequest productRequest = getProductRequest();
+		ProductDTO productRequest = getProductRequest();
 		String productRequestString = objectMapper.writeValueAsString(productRequest);
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/product")
@@ -56,8 +56,8 @@ class productServiceApplicationTests {
 		Assertions.assertEquals(1, productRepository.findAll().size());
 	}
 
-	private ProductRequest getProductRequest() {
-		return ProductRequest.builder()
+	private ProductDTO getProductRequest() {
+		return ProductDTO.builder()
 				.name("shite")
 				.description("more shite")
 				.price(BigDecimal.valueOf(123.45))
