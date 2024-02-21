@@ -43,7 +43,14 @@ class ProductController {
         return productService.findAll();
     }
 
+    @Operation(
+            summary = "Get A Product By Id",
+            description = "Gets a Product from the database.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Product.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     Optional<Product> findById(@PathVariable Integer id) {
         return productService.findById(id);
     }
