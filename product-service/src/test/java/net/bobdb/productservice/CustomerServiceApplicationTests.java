@@ -17,14 +17,12 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.math.BigDecimal;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @Testcontainers
 @AutoConfigureMockMvc
-class productServiceApplicationTests {
+class ProductServiceApplicationTest {
 
 	@Container
 	static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.4.2");
@@ -60,7 +58,7 @@ class productServiceApplicationTests {
 		return ProductDTO.builder()
 				.name("shite")
 				.description("more shite")
-				.price(BigDecimal.valueOf(123.45))
+				.price("123.45")
 				.build();
 	}
 

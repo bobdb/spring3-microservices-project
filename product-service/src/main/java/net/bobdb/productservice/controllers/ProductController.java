@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import net.bobdb.productservice.dto.ProductDTO;
@@ -15,7 +16,6 @@ import net.bobdb.productservice.models.Product;
 import net.bobdb.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,9 +62,9 @@ class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ProductDTO createProduct(@RequestBody @Validated ProductDTO productDTO) {
+    ProductDTO createProduct(@RequestBody @Valid ProductDTO productDTO) {
         Product p = productService.createProduct(ProductMapper.mapToObject(productDTO));
-        return ProductMapper.mapToDTO(p); // on failure sends 500 in service
+        return ProductMapper.mapToDTO(p);
     }
 
     @Operation(
@@ -75,7 +75,7 @@ class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
+    ProductDTO updateProduct(@PathVariable Integer id, @RequestBody @Valid ProductDTO productDTO) {
         Optional<Product> existingProduct = productService.findById(id);
 
         if (existingProduct.isEmpty())

@@ -1,11 +1,10 @@
 package net.bobdb.productservice.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -13,7 +12,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ProductDTO {
     private Integer id;
+    @NotBlank(message = "Name is mandatory")
     private String name;
     private String description;
-    private BigDecimal price;
+    @NotBlank(message = "Price is mandatory")
+    private String price;
 }
+

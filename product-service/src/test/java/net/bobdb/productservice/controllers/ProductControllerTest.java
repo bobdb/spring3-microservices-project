@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,13 +48,13 @@ class ProductControllerTest {
                 Product.builder()
                         .id(1)
                         .name("Product Numero Uno")
-                        .price(BigDecimal.valueOf(1.23))
+                        .price("1.23")
                         .description("Something espsecial!")
                         .build(),
                 Product.builder()
                         .id(2)
                         .name("Product Numero Dos")
-                        .price(BigDecimal.valueOf(4.56))
+                        .price("4.56")
                         .description("Something also espsecial!")
                         .build()
                 );
@@ -100,9 +99,10 @@ class ProductControllerTest {
 
     @Test
     void shouldCreateProductWhenObjectIsValid() throws Exception {
-        Product product = TEST_DB_PRODUCTS.get(0);
-        when(productService.createProduct(product))
-                .thenReturn(product);
+        Product testProduct = TEST_DB_PRODUCTS.get(0);
+        testProduct.setId(null);
+        when(productService.createProduct(testProduct))
+                .thenReturn(testProduct);
         String json = getJsonAsString();
         mockMvc.perform(post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -111,31 +111,21 @@ class ProductControllerTest {
     }
 
     @Test
-    void shouldNotCreateProductWhenObjectIsInvalid() {
-//        Product product = testProducts.get(0);
-//        when(productService.createProduct(ProductMapper.mapToRequest(product))).thenReturn(product);
-//        String json = """
-//                {
-//                    "name": "Product Numero Uno",
-//                    "description": "Something espsecial!"
-//                }
-//                """;
-//        mockMvc.perform(post("/api/products")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(json))
-//                .andExpect(status().isBadRequest());
+    void shouldNotCreateProductWhenObjectIsInvalid() throws Exception {
+        String json = getInvalidJsonAsString();
+        mockMvc.perform(post("/api/products")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isBadRequest());
     }
 
-
-    //update and delete
     @Test
     void shouldUpdateProductWhenGiveValidPost() throws Exception {
-        Product updatedProduct = TEST_DB_PRODUCTS.get(0);
-        updatedProduct.setName("This is a modified title");
+        Product testProduct = TEST_DB_PRODUCTS.get(0);
+        when(productService.findById(1)).thenReturn(Optional.of(testProduct));
 
-        when(productService.findById(1)).thenReturn(Optional.of(TEST_DB_PRODUCTS.get(0)));
-
-     //   when(productService.updateProduct(ProductMapper.mapToDTO(updatedProduct))).thenReturn(updatedProduct);
+        Product updatedProduct = new Product(TEST_DB_PRODUCTS.get(0));
+        when(productService.updateProduct(updatedProduct)).thenReturn(updatedProduct);
 
         mockMvc.perform(put("/api/products/1")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -144,8 +134,12 @@ class ProductControllerTest {
     }
 
     @Test
-    void shouldNotUpdatePostWhenGiveValidPost() {
-
+    void shouldNotUpdatePostWhenGiveInValidPost() throws Exception {
+        String json = getInvalidJsonAsString();
+        mockMvc.perform(put("/api/products/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isBadRequest());
     }
 
     @Test void shouldDeleteProductWhenValidId() throws Exception {
@@ -158,14 +152,20 @@ class ProductControllerTest {
         verify(productService,times(1)).deleteProduct(1);
     }
 
-
-
+    private String getInvalidJsonAsString() {
+        return """
+                {
+                    "name": "Product Numero Malo",
+                    "description": "No espsecial!"
+                }
+                """;
+    }
 
     private String getJsonAsString() {
         return                 """
                 {
                     "name": "Product Numero Uno",
-                    "price": 1.23,
+                    "price": "1.23",
                     "description": "Something espsecial!"
                 }
                 """;
