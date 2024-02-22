@@ -1,9 +1,6 @@
 package net.bobdb.productservice.services;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bobdb.productservice.controllers.ProductNotFoundException;
-import net.bobdb.productservice.dto.ProductDTO;
-import net.bobdb.productservice.mappers.ProductMapper;
 import net.bobdb.productservice.models.Product;
 import net.bobdb.productservice.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -22,19 +19,22 @@ class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductDTO> findAll() {
-        List<Product> allProducts = productRepository.findAll();
-        return allProducts.stream().map(ProductMapper::mapToDTO).toList();
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
-    public Product createProduct(ProductDTO productRequest) {
-        log.info("Product {} is saved", productRequest.getName());
-        return productRepository.save(ProductMapper.mapToObject(productRequest));
-
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
     }
 
     public Optional<Product> findById(Integer id) {
-        return Optional.ofNullable(productRepository.findById(String.valueOf(id))
-                                                    .orElseThrow(ProductNotFoundException::new));
+        return productRepository.findById(String.valueOf(id));
+    }
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(Integer id) {
+        productRepository.deleteById(String.valueOf(id));
     }
 }

@@ -39,7 +39,7 @@ class ProductController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDTO> findAll() {
-        return productService.findAll();
+        return ProductMapper.mapToDTO(productService.findAll());
     }
 
     @Operation(
@@ -63,7 +63,46 @@ class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     ProductDTO createProduct(@RequestBody @Validated ProductDTO productDTO) {
-        return ProductMapper.mapToDTO(productService.createProduct(productDTO)); // on failure sends 500 in service
+        Product p = productService.createProduct(ProductMapper.mapToObject(productDTO));
+        return ProductMapper.mapToDTO(p); // on failure sends 500 in service
     }
+
+    @Operation(
+            summary = "Modify Product",
+            description = "Updates a Product in the database.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = Product.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
+        Optional<Product> existingProduct = productService.findById(id);
+
+        if (existingProduct.isEmpty())
+            throw new ProductNotFoundException();
+
+        Product updatedProduct = Product.builder()
+                    .id(existingProduct.get().getId())
+                    .name(productDTO.getName())
+                    .price(productDTO.getPrice())
+                    .description(productDTO.getDescription())
+                .build();
+
+        return ProductMapper.mapToDTO(productService.updateProduct(updatedProduct)); // on failure sends 500 in service
+
+    }
+
+    @Operation(
+            summary = "Delete Product",
+            description = "Deletes a Product from the database.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", content = { @Content(schema = @Schema(implementation = Product.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable Integer id) {
+        productService.deleteProduct(id);
+    }
+
 
 }

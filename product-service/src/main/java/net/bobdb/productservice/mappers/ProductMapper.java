@@ -10,6 +10,7 @@ public class ProductMapper {
 
     public static Product mapToObject(ProductDTO productDTO) {
         return Product.builder()
+                .id(productDTO.getId())
                 .name(productDTO.getName())
                 .description(productDTO.getDescription())
                 .price(productDTO.getPrice())
@@ -17,6 +18,7 @@ public class ProductMapper {
     }
     public static ProductDTO mapToDTO(Product product) {
         return ProductDTO.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
                 .description(product.getDescription())
