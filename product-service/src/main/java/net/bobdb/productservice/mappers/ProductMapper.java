@@ -13,7 +13,9 @@ public class ProductMapper {
                 .id(productDTO.getId())
                 .name(productDTO.getName())
                 .description(productDTO.getDescription())
+                .manufacturer(productDTO.getManufacturer())
                 .price(productDTO.getPrice())
+                .year(productDTO.getYear())
                 .build();
     }
     public static ProductDTO mapToDTO(Product product) {
@@ -21,7 +23,9 @@ public class ProductMapper {
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
+                .manufacturer(product.getManufacturer())
                 .description(product.getDescription())
+                .year(product.getYear())
                 .build();
     }
 

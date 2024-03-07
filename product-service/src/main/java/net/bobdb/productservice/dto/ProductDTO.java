@@ -17,5 +17,8 @@ public class ProductDTO {
     private String description;
     @NotBlank(message = "Price is mandatory")
     private String price;
+    private String year;
+    private String manufacturer;
+
 }
 

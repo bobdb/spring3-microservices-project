@@ -18,4 +18,5 @@ public class Product {
     private String manufacturer;
     private String year;
     private String price;
+
 }

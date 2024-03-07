@@ -39,7 +39,9 @@ class ProductController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDTO> findAll() {
-        return ProductMapper.mapToDTO(productService.findAll());
+       var p =  productService.findAll();
+
+        return ProductMapper.mapToDTO(p);
     }
 
     @Operation(
@@ -84,11 +86,13 @@ class ProductController {
         Product updatedProduct = Product.builder()
                     .id(existingProduct.get().getId())
                     .name(productDTO.getName())
+                    .manufacturer(productDTO.getManufacturer())
                     .price(productDTO.getPrice())
+                    .year(productDTO.getYear())
                     .description(productDTO.getDescription())
                 .build();
-
-        return ProductMapper.mapToDTO(productService.updateProduct(updatedProduct)); // on failure sends 500 in service
+        var p =  productService.updateProduct(updatedProduct);
+        return ProductMapper.mapToDTO(p); // on failure sends 500 in service
 
     }
 

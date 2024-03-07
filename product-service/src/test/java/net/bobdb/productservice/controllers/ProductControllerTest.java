@@ -44,21 +44,24 @@ class ProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        TEST_DB_PRODUCTS = List.of(
-                Product.builder()
-                        .id(1)
-                        .name("Product Numero Uno")
-                        .price("1.23")
-                        .description("Something espsecial!")
-                        .build(),
-                Product.builder()
-                        .id(2)
-                        .name("Product Numero Dos")
-                        .price("4.56")
-                        .description("Something also espsecial!")
-                        .build()
-                );
+         TEST_DB_PRODUCTS = List.of(
+            Product.builder().id(1).name("Les Paul").manufacturer("Gibson").year("1960").price("10000.00").build(),
+            Product.builder().id(2).name("Flying V").manufacturer("Gibson").year("1972").price("8000.00").build(),
+            Product.builder().id(3).name("Stratocaster").manufacturer("Fender").year("1970").price("6000.00").build(),
+            Product.builder().id(4).name("Telecaster").manufacturer("Fender").year("1982").price("1000.00").build(),
+            Product.builder().id(5).name("CE24").manufacturer("PRS").year("2023").price("2499.99").build()
+        );
     }
+
+    private static final String TEST_PRODUCT_1_AS_STRING =
+                 """
+                {
+                    "name": "Les Paul",
+                    "manufacturer": "Gibson",
+                    "year": "1960",
+                    "price": "10000.00"
+                }
+                """;
 
     @Test
     void findAll() throws Exception {
@@ -70,7 +73,7 @@ class ProductControllerTest {
         assertEquals(200, mvcResult.getResponse().getStatus());
 
         mockMvc.perform(get("/api/products"))
-        .andExpectAll(
+            .andExpectAll(
                 status().isOk(),
                 content().json(objectMapper.writeValueAsString(testProducts))
                 );
@@ -78,17 +81,17 @@ class ProductControllerTest {
         mockMvc.perform(get("/api/products")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$[0].name", is(testProducts.get(0).getName())));
     }
 
     @Test
     void shouldFindProductWithValidId() throws Exception {
         when(productService.findById(1)).thenReturn(Optional.of(TEST_DB_PRODUCTS.get(0)));
-        String json = getJsonAsString();
-        mockMvc.perform(get("/api/products/1"))
+        mockMvc.perform(get("/api/products/1")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().json(json));
+                .andExpect(content().json(TEST_PRODUCT_1_AS_STRING));
     }
     @Test
     void shouldNotFindProductWithInvalidId() throws Exception {
@@ -103,10 +106,9 @@ class ProductControllerTest {
         testProduct.setId(null);
         when(productService.createProduct(testProduct))
                 .thenReturn(testProduct);
-        String json = getJsonAsString();
         mockMvc.perform(post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
+                        .content(TEST_PRODUCT_1_AS_STRING))
                 .andExpect(status().isCreated());
     }
 
@@ -120,13 +122,12 @@ class ProductControllerTest {
     }
 
     @Test
-    void shouldUpdateProductWhenGiveValidPost() throws Exception {
+    void shouldUpdateProductWhenGiveValidProduct() throws Exception {
         Product testProduct = TEST_DB_PRODUCTS.get(0);
-        when(productService.findById(1)).thenReturn(Optional.of(testProduct));
-
-        Product updatedProduct = new Product(TEST_DB_PRODUCTS.get(0));
+        when(productService.findById(1)).thenReturn(Optional.of(testProduct)); // existing product
+        Product updatedProduct = TEST_DB_PRODUCTS.get(0);
+        updatedProduct.setDescription("New Description");
         when(productService.updateProduct(updatedProduct)).thenReturn(updatedProduct);
-
         mockMvc.perform(put("/api/products/1")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(updatedProduct)))
@@ -134,7 +135,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void shouldNotUpdatePostWhenGiveInValidPost() throws Exception {
+    void shouldNotUpdatePostWhenGiveInValidProduct() throws Exception {
         String json = getInvalidJsonAsString();
         mockMvc.perform(put("/api/products/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -155,20 +156,12 @@ class ProductControllerTest {
     private String getInvalidJsonAsString() {
         return """
                 {
-                    "name": "Product Numero Malo",
-                    "description": "No espsecial!"
+                    "name": "Bad Product",
+                    "description": "Bad Product Description"
                 }
                 """;
     }
 
-    private String getJsonAsString() {
-        return                 """
-                {
-                    "name": "Product Numero Uno",
-                    "price": "1.23",
-                    "description": "Something espsecial!"
-                }
-                """;
-    }
+
 
 }
