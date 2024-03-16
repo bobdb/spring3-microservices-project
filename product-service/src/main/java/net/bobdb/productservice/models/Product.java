@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigInteger;
+
 @Document(value = "product")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Product {
 
     @Id
-    private Integer id;
+    private BigInteger id;
     private String name;
     private String description;
     private String manufacturer;

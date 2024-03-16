@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
-    private Integer id;
+    private BigInteger id;
     @NotBlank(message = "Name is mandatory")
     private String name;
     private String description;
