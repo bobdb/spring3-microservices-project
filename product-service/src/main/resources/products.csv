@@ -1,6 +1,73 @@
 id,name,description,manufacturer,year,price
-1,Les Paul,,Gibson,1960,10000.00
-2,Flying V,,Gibson,1972,8000.00
-3,Stratocaster,,Fender,1970,6000.00
-4,Telecaster,,Fender,1982,1000.00
-5,CE24,,PRS,2023,2499.99
+100,Les Paul,,Gibson,1960,10000.00
+101,Flying V,,Gibson,1972,8000.00
+102,Stratocaster,,Fender,1970,6000.00
+103,Telecaster,,Fender,1982,1000.00
+104,CE24,,PRS,2023,2499.99
+1,Pro-Mod So-Cal,,Charvel,2003,800.00
+2,59,,Danelectro,1999,300.00
+3,ML,,Dean,1973,300.00
+4,B Series,,ESP LTD,2012,400.00
+5,D Series,,ESP LTD,2024,300.00
+6,EC Series,,ESP LTD,1971,400.00
+7,H Series,,ESP LTD,1974,500.00
+8,MH Series,,ESP LTD,1993,400.00
+9,Stream Series,,ESP LTD,2012,400.00
+10,Wolfgang Special,,EVH,1985,100.00
+11,Casino,,Epiphone,1982,400.00
+12,Les Paul Standard,,Epiphone,1976,400.00
+13,Riviera,,Epiphone,1998,400.00
+14,SG,,Epiphone,1998,200.00
+15,Jazz Bass,,Fender,1975,500.00
+16,Jaguar,,Fender,1973,800.00
+17,Jaguar Bass,,Fender,2010,600.00
+18,Mustang,,Fender,1984,500.00
+19,Precision Bass,,Fender,2009,500.00
+20,Stratocaster,,Fender,1980,500.00
+21,Telecaster,,Fender,2024,500.00
+22,Telecaster Bass,,Fender,1993,700.00
+23,EB Bass,,Gibson,1993,800.00
+24,ES-335,,Gibson,1995,200.00
+25,Explorer,,Gibson,2003,100.00
+26,Flying V,,Gibson,1989,100.00
+27,Les Paul,,Gibson,2009,100.00
+28,Les Paul Bass,,Gibson,2009,100.00
+29,SG,,Gibson,1984,800.00
+30,Thunderbird,,Gibson,2012,100.00
+31,Session,,Godin,1971,500.00
+32,Electromatic Pro Jet,,Gretsch,2020,600.00
+33,G2622 Streamliner,,Gretsch,2012,400.00
+34,Streamliner,,Gretsch,1977,400.00
+35,Starfire II,,Guild,1980,800.00
+36,Artcore AF75,,Ibanez,2021,300.00
+37,Iron Label,,Ibanez,1998,600.00
+38,JEM,,Ibanez,2014,"1,500.00"
+39,RG Series,,Ibanez,2023,300.00
+40,S Series,,Ibanez,2003,400.00
+41,SR Series,,Ibanez,2015,300.00
+42,ATK Series,,Ibanez,1982,500.00
+43,AZ Series,,Ibanez,2015,800.00
+44,Dinky,,Jackson,2009,400.00
+45,Rhoads RRXMG,,Jackson,1979,500.00
+46,Soloist,,Jackson,1989,400.00
+47,SE Custom 24,,PRS,2022,700.00
+48,Custom 22,,PRS SE,2000,600.00
+49,Kestrel Bass,,PRS SE,2006,500.00
+50,Kingfisher Bass,,PRS SE,2000,700.00
+51,Santana Standard,,PRS SE,2015,700.00
+52,Standard 22,,PRS SE,2004,600.00
+53,Tremonti Standard,,PRS SE,2017,600.00
+54,Zach Myers Signature,,PRS SE,2014,700.00
+55,330,,Rickenbacker,2012,"1,500.00"
+56,Double Agent,,Reverend,2024,700.00
+57,Banshee Elite,,Schecter,1973,700.00
+58,C-6,,Schecter,2003,200.00
+59,Diamond Series,,Schecter,1996,400.00
+60,Hellraiser C-1,,Schecter,1974,500.00
+61,Omen,,Schecter,1996,300.00
+62,Stiletto Studio,,Schecter,1987,600.00
+63,Affinity Series Stratocaster,,Squier,1990,200.00
+64,Classic Vibe Stratocaster,,Squier,2023,300.00
+65,Vintage Modified Precision Bass,,Squier,2011,300.00
+66,T3,,Taylor,2007,"1,500.00"
+67,Parallaxe,,Washburn,1985,400.00
