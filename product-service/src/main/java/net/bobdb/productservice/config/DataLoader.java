@@ -30,8 +30,8 @@ public class DataLoader {
 
         return args -> {
             productRepository.deleteAll();
-            List<Product> productList = testProductsFromCSVLocal(DEFAULT_DB_DATA);
-            productRepository.saveAll(productList);
+        //    List<Product> productList = testProductsFromCSVLocal(DEFAULT_DB_DATA);
+       //     productRepository.saveAll(productList);
         };
     }
 

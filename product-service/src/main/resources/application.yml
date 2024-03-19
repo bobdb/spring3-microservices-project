@@ -3,6 +3,8 @@ myapp:
     dev-url: http://localhost:8080/
     prod-url: https://myapp.net/stuff
   dbname: products.csv
+file:
+  input: products.csv
 eureka:
   client:
     serviceUrl:
