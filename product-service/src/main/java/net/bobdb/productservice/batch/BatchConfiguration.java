@@ -1,6 +1,7 @@
 package net.bobdb.productservice.batch;
 
 import net.bobdb.productservice.models.Product;
+import net.bobdb.productservice.repositories.ProductRepository;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -12,6 +13,7 @@ import org.springframework.batch.item.data.builder.MongoItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,9 +27,12 @@ public class BatchConfiguration {
     @Value("${file.input}")
     private String fileInput;
 
+    @Autowired
+    ProductRepository productRepository;
+
     @Bean
-    public FlatFileItemReader reader() {
-        return new FlatFileItemReaderBuilder()
+    public FlatFileItemReader<Product> reader() {
+        return new FlatFileItemReaderBuilder<Product>()
                 .name("productReader")
                 .resource(new ClassPathResource(fileInput))
                 .delimited()
@@ -45,15 +50,13 @@ public class BatchConfiguration {
                 .build();
     }
 
+
+
     @Bean
-    public Job importProductsJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step step1) {
-        return new JobBuilder("importProductsJob", jobRepository)
-                .incrementer(new RunIdIncrementer())
-                .listener(listener)
-                .flow(step1)
-                .end()
-                .build();
+    public ProductsProcessor processor() {
+        return new ProductsProcessor();
     }
+
 
     @Bean
     public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager, MongoItemWriter writer) {
@@ -66,7 +69,11 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ProductsProcessor processor() {
-        return new ProductsProcessor();
+    public Job importProductsJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step step1) {
+        return new JobBuilder("importProductsJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .listener(listener)
+                .start(step1)
+                .build();
     }
 }

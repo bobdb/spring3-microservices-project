@@ -26,3 +26,6 @@ spring:
       password: pass
       port: 27017
       username: user
+  batch:
+    job:
+      enabled: true

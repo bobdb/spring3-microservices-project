@@ -1,5 +1,7 @@
 package net.bobdb.productservice.config;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.bean.CsvToBeanBuilder;
 import net.bobdb.productservice.models.Product;
 import net.bobdb.productservice.repositories.ProductRepository;
@@ -30,9 +32,17 @@ public class DataLoader {
 
         return args -> {
             productRepository.deleteAll();
-        //    List<Product> productList = testProductsFromCSVLocal(DEFAULT_DB_DATA);
-       //     productRepository.saveAll(productList);
+         //   List<Product> productList = testProductsFromList();
+         //   List<Product> productList = testProductsFromCSVLocal(DEFAULT_DB_DATA);
+            List<Product> productList = testProductsFromJsonLocal("products.json");
+            productRepository.saveAll(productList);
         };
+    }
+
+    private List<Product> testProductsFromJsonLocal(String filename) throws IOException {
+        Resource resource = ctx.getResource("classpath:" + filename);
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(  resource.getFile(), new TypeReference<List<Product>>(){});
     }
 
     private List<Product> testProductsFromList() {
