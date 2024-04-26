@@ -1,4 +1,4 @@
-id,name,description,manufacturer,year,price
+id,name,manufacturer,description,year,price
 100,Les Paul,,Gibson,1960,10000.00
 101,Flying V,,Gibson,1972,8000.00
 102,Stratocaster,,Fender,1970,6000.00

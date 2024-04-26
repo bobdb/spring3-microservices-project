@@ -14,7 +14,8 @@ public class ProductsProcessor implements ItemProcessor<Product, Product> {
                 .id(product.getId())
                 .name(product.getName())
                 .year(product.getYear())
-                .description("no description yet")
+                .manufacturer(product.getManufacturer())
+                .description(product.getDescription())
                 .price(product.getPrice())
         .build();
         LOGGER.info("Processor acting on {}", newProduct);

@@ -29,13 +29,8 @@ public class DataLoader {
 
     @Bean
     CommandLineRunner loadData(ProductRepository productRepository) {
-
         return args -> {
-            productRepository.deleteAll();
-         //   List<Product> productList = testProductsFromList();
-         //   List<Product> productList = testProductsFromCSVLocal(DEFAULT_DB_DATA);
-            List<Product> productList = testProductsFromJsonLocal("products.json");
-            productRepository.saveAll(productList);
+         //   productRepository.deleteAll();
         };
     }
 
@@ -58,10 +53,8 @@ public class DataLoader {
     }
 
     private List<Product> testProductsFromCSVLocal(String filename) throws IOException {
-
         Resource resource = ctx.getResource("classpath:" + filename);
         return new CsvToBeanBuilder<Product>(new FileReader(resource.getFile()))
                 .withType(Product.class).build().parse();
-
     }
 }

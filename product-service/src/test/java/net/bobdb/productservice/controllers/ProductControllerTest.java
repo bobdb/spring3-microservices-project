@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,11 +46,11 @@ class ProductControllerTest {
     @BeforeEach
     void setUp() {
          TEST_DB_PRODUCTS = List.of(
-            Product.builder().id(1).name("Les Paul").manufacturer("Gibson").year("1960").price("10000.00").build(),
-            Product.builder().id(2).name("Flying V").manufacturer("Gibson").year("1972").price("8000.00").build(),
-            Product.builder().id(3).name("Stratocaster").manufacturer("Fender").year("1970").price("6000.00").build(),
-            Product.builder().id(4).name("Telecaster").manufacturer("Fender").year("1982").price("1000.00").build(),
-            Product.builder().id(5).name("CE24").manufacturer("PRS").year("2023").price("2499.99").build()
+            Product.builder().id(BigInteger.valueOf(1)).name("Les Paul").manufacturer("Gibson").year("1960").price("10000.00").build(),
+            Product.builder().id(BigInteger.valueOf(2)).name("Flying V").manufacturer("Gibson").year("1972").price("8000.00").build(),
+            Product.builder().id(BigInteger.valueOf(3)).name("Stratocaster").manufacturer("Fender").year("1970").price("6000.00").build(),
+            Product.builder().id(BigInteger.valueOf(4)).name("Telecaster").manufacturer("Fender").year("1982").price("1000.00").build(),
+            Product.builder().id(BigInteger.valueOf(5)).name("CE24").manufacturer("PRS").year("2023").price("2499.99").build()
         );
     }
 

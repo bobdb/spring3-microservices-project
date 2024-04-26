@@ -18,7 +18,6 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus()== BatchStatus.COMPLETED) {
             LOGGER.info("JOB FINISHED");
-            // TODO add verification for example
         }
         JobExecutionListener.super.afterJob(jobExecution);
     }

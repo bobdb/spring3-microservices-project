@@ -39,9 +39,7 @@ class ProductController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDTO> findAll() {
-       var p =  productService.findAll();
-
-        return ProductMapper.mapToDTO(p);
+        return ProductMapper.mapToDTO(productService.findAll());
     }
 
     @Operation(

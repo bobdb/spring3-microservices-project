@@ -46,7 +46,7 @@ public class BatchConfiguration {
 
     @Bean
     public MongoItemWriter<Product> writer(MongoTemplate mongoTemplate) {
-        return new MongoItemWriterBuilder<Product>().template(mongoTemplate).collection("products")
+        return new MongoItemWriterBuilder<Product>().template(mongoTemplate).collection("product")
                 .build();
     }
 
