@@ -1,6 +1,7 @@
 package net.bobdb.productservice.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -8,8 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-
-import net.bobdb.productservice.batch.ProductsProcessor;
 import net.bobdb.productservice.dto.ProductDTO;
 
 import net.bobdb.productservice.mappers.ProductMapper;
@@ -43,11 +42,12 @@ class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductDTO> findAll(@RequestParam(required = false) Optional<Boolean> useAIDescription) {
+    public List<ProductDTO> findAll(@RequestParam(required = false) @Parameter(description="generate descriptions using some AI engine (TODO)", example="false") Optional<Boolean> useAIDescription) {
         if  (useAIDescription.isPresent() && useAIDescription.get())  {
             LOGGER.info("use the AI description");
             return ProductMapper.mapToDTO(productService.findAllWithAIDescription());
         }
+        LOGGER.info("using the DB description.  Probably empty");
         return ProductMapper.mapToDTO(productService.findAll());
     }
 
