@@ -9,11 +9,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
+import net.bobdb.productservice.batch.ProductsProcessor;
 import net.bobdb.productservice.dto.ProductDTO;
 
 import net.bobdb.productservice.mappers.ProductMapper;
 import net.bobdb.productservice.models.Product;
 import net.bobdb.productservice.services.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,8 @@ import java.util.Optional;
 @Slf4j
 class ProductController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired
     ProductService productService;
 
@@ -38,7 +43,11 @@ class ProductController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductDTO> findAll() {
+    public List<ProductDTO> findAll(@RequestParam(required = false) Optional<Boolean> useAIDescription) {
+        if  (useAIDescription.isPresent() && useAIDescription.get())  {
+            LOGGER.info("use the AI description");
+            return ProductMapper.mapToDTO(productService.findAllWithAIDescription());
+        }
         return ProductMapper.mapToDTO(productService.findAll());
     }
 

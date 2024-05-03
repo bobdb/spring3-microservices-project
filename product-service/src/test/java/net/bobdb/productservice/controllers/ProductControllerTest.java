@@ -87,6 +87,24 @@ class ProductControllerTest {
     }
 
     @Test
+    void shouldFindAllWithDescriptionsWhenAIFlagEnabled() throws Exception {
+
+        List<Product> testProducts = TEST_DB_PRODUCTS;
+        when(productService.findAll()).thenReturn(testProducts);
+
+        MvcResult mvcResult = mockMvc.perform(get("/api/products?useAIDescription=true")).andReturn();
+        assertEquals(200, mvcResult.getResponse().getStatus());
+
+        mockMvc.perform(get("/api/products?useAIDescription=false")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(5)))
+                .andExpect(jsonPath("$[0].description").doesNotExist());
+        assertEquals(200, mvcResult.getResponse().getStatus());
+
+    }
+
+    @Test
     void shouldFindProductWithValidId() throws Exception {
         when(productService.findById(1)).thenReturn(Optional.of(TEST_DB_PRODUCTS.get(0)));
         mockMvc.perform(get("/api/products/1")

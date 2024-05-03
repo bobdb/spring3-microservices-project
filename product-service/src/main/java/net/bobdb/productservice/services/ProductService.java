@@ -37,4 +37,8 @@ class ProductService {
     public void deleteProduct(Integer id) {
         productRepository.deleteById(String.valueOf(id));
     }
+
+    public List<Product> findAllWithAIDescription() {
+       return productRepository.findAll();
+    }
 }
