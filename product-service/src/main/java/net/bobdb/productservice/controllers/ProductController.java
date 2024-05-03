@@ -32,7 +32,7 @@ class ProductController {
 
     @Operation(
             summary = "Get All Products",
-            description = "Gets all Products in the database. The response is a list of Product objects, each containing FIX THIS")
+            description = "Gets all Products in the database. The response is a list of Product objects.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Product.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
@@ -91,7 +91,6 @@ class ProductController {
                 .build();
         var p =  productService.updateProduct(updatedProduct);
         return ProductMapper.mapToDTO(p); // on failure sends 500 in service
-
     }
 
     @Operation(
