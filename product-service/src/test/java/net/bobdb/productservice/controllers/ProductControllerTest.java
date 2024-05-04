@@ -133,7 +133,12 @@ class ProductControllerTest {
 
     @Test
     void shouldNotCreateProductWhenObjectIsInvalid() throws Exception {
-        String json = getInvalidJsonAsString();
+        String json =  """
+                {
+                    "name": "Bad Product",
+                    "description": "Bad Product Description"
+                }
+                """;
         mockMvc.perform(post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
