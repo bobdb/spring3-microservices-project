@@ -1,14 +1,9 @@
 id,name,manufacturer,description,year,price
-100,Les Paul,,Gibson,1960,10000.00
-101,Flying V,,Gibson,1972,8000.00
-102,Stratocaster,,Fender,1970,6000.00
-103,Telecaster,,Fender,1982,1000.00
-104,CE24,,PRS,2023,2499.99
-1,Pro-Mod So-Cal,,Charvel,2003,800.00
-2,59,,Danelectro,1999,300.00
-3,ML,,Dean,1973,300.00
-4,B Series,,ESP LTD,2012,400.00
-5,D Series,,ESP LTD,2024,300.00
+1,Les Paul,,Gibson,1960,10000.00
+2,Flying V,,Gibson,1972,8000.00
+3,Stratocaster,,Fender,1970,6000.00
+4,Telecaster,,Fender,1982,1000.00
+5,CE24,,PRS,2023,2499.99
 6,EC Series,,ESP LTD,1971,400.00
 7,H Series,,ESP LTD,1974,500.00
 8,MH Series,,ESP LTD,1993,400.00
@@ -71,3 +66,8 @@ id,name,manufacturer,description,year,price
 65,Vintage Modified Precision Bass,,Squier,2011,300.00
 66,T3,,Taylor,2007,"1,500.00"
 67,Parallaxe,,Washburn,1985,400.00
+68,Pro-Mod So-Cal,,Charvel,2003,800.00
+69,59,,Danelectro,1999,300.00
+70,ML,,Dean,1973,300.00
+71,B Series,,ESP LTD,2012,400.00
+72,D Series,,ESP LTD,2024,300.00
