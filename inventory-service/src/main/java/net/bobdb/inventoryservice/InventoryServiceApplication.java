@@ -21,8 +21,12 @@ public static void main(String[] args) {
 	CommandLineRunner loadData(InventoryRepository inventoryRepository) {
 		List<Inventory> inventoryList = new ArrayList<>();
 		for (int i=1;i<=72;i++) {
-			inventoryList.add(Inventory.builder().modelId(i).quantity(99).build());
+			inventoryList.add(Inventory.builder().modelId(i)
+					.quantity((i>50?0:99))
+					.build());
+
 		}
+
 		for (Inventory i : inventoryList) {
 			System.out.println(i + "added to InventoryRepository");
 		}
