@@ -21,6 +21,7 @@ public class InventoryController {
 
     @Autowired
     InventoryService inventoryService;
+
     @Operation(
             summary = "Find Inventory (individually) by skucode(s)",
             description = "Finds inventory in the database.  By default, acts as a findAll. One or more skucodes may be provided " +
@@ -38,6 +39,19 @@ public class InventoryController {
         return inventoryService.findBySkuCodes(skucode);
 
     }
+
+    @Operation(
+            summary = "Find Inventory by ID",
+            description = "Finds inventory in the database by an id, if you happen to known one")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = InventoryDto.class), mediaType = "application/json") })
+    })
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public InventoryDto findById(@PathVariable("id") Long id) {
+        return inventoryService.findByModelId(id);
+    }
+
     @Operation(
             summary = "Check if products are in the Inventory database and available (quantity > 0)",
             description = "Finds if items(s) are in the database by skucode, provided as request parameters")

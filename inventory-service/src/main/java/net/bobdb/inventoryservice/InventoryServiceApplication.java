@@ -8,21 +8,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 public class InventoryServiceApplication {
-
-	public static void main(String[] args) {
+public static void main(String[] args) {
 		SpringApplication.run(InventoryServiceApplication.class, args);
 	}
 	@Bean
 	CommandLineRunner loadData(InventoryRepository inventoryRepository) {
-		List<Inventory> inventoryList = List.of(
-				Inventory.builder().modelId(100).quantity(10).build(),
-				Inventory.builder().modelId(101).quantity(0).build(),
-				Inventory.builder().modelId(102).quantity(5).build());
+		List<Inventory> inventoryList = new ArrayList<>();
+		for (int i=1;i<=72;i++) {
+			inventoryList.add(Inventory.builder().modelId(i).quantity(99).build());
+		}
 		for (Inventory i : inventoryList) {
 			System.out.println(i + "added to InventoryRepository");
 		}

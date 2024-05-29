@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -25,6 +26,11 @@ public class InventoryService {
     public List<InventoryDto> findAll() {
         List<Inventory> list = inventoryRepository.findAll();
         return list.stream().map(Mapper::mapToDto).toList();
+    }
+
+    public InventoryDto findById(Long id) {
+        Optional<Inventory> inventoryObject = inventoryRepository.findById(id);
+        return inventoryObject.map(Mapper::mapToDto).orElseThrow();
     }
 
     public List<InventoryDto> findBySkuCodes(List<String> skucode) {
@@ -49,4 +55,8 @@ public class InventoryService {
 
     }
 
+    public InventoryDto findByModelId(Long id) {
+        Optional<Inventory> inventoryObject = inventoryRepository.findByModelId(Math.toIntExact(id));
+        return inventoryObject.map(Mapper::mapToDto).orElse(new InventoryDto("",-1, Math.toIntExact(id)));
+    }
 }

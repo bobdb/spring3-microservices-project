@@ -10,6 +10,7 @@ public class Mapper {
         return Inventory.builder()
                 .skucode(inventoryDto.getSkucode())
                 .quantity(inventoryDto.getQuantity())
+                .modelId(inventoryDto.getModelId())
                 .build();
     }
 
@@ -17,6 +18,7 @@ public class Mapper {
         return InventoryDto.builder()
                 .skucode(inventory.getSkucode())
                 .quantity(inventory.getQuantity())
+                .modelId(inventory.getModelId())
                 .build();
     }
 }
